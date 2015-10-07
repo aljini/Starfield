@@ -1,42 +1,51 @@
-NormalParticle[]part;
+NormalParticle[]partA;
+
+
 
 void setup()
 {
 	
-	size(500, 500);
+	size(1000, 750);
 	background(0);
-	part = new NormalParticle[1000];
+	partA = new NormalParticle[1000];
 
 	for (int i=0;i<1000; i++){
 
-		part[i]= new NormalParticle();
+		partA[i]= new NormalParticle();
 
-	part[i].move();
-	part[i].show();
+	partA[i].move();
+	partA[i].show();
 	}
+
 }
 void draw()
 {
-	for (int i=0;i<1000; i++){
 
+	background(0);
+	for (int i=0;i<1000; i++){
+	partA[i].move();
+	partA[i].show();
+	}
 	
 
-	part[i].move();
-	part[i].show();
-	}
+
 	
 }
 class NormalParticle
 {
 	double nX,nY,nTheta,nSpeed;
-	int nColor;
+	int nR,nG,nB,nWH;
+	
 	NormalParticle(){
 
-		nX =250;
+		nX =500;
 		nY =250;
 		nTheta=Math.random()*2*Math.PI;
-		nSpeed =(Math.random()*10)+5;
-		nColor=255;
+		nSpeed =(Math.random()*10)+0.0000001;
+		nR=(int)(Math.random()*256);
+		nG=(int)(Math.random()*256);
+		nB=(int)(Math.random()*256);
+		nWH=(int)((Math.random()*20)+1);
 
 	}
 
@@ -48,9 +57,9 @@ class NormalParticle
 	}
 
 	void show(){
-
-    fill(nColor);
-	ellipse((int)nX,(int)nY, 10, 10);
+		noStroke();
+    fill(nR,nG,nB);
+	ellipse((float)nX,(float)nY, nWH, nWH);
 	}
 }
 interface Particle
