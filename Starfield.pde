@@ -2,7 +2,9 @@ Particle []rainbow;
 int bR;
 int bG;
 int bB;
-
+int bC=255;
+PImage kuromi;
+PImage melody;
 void setup()
 {
 	
@@ -10,45 +12,52 @@ void setup()
 
 	rainbow = new Particle[1000];
 	
-	for (int i =0; i<200; i++){
+	for (int i =0; i<400; i++){
 
 		rainbow[i] = new NormalParticleA();
-	}
-	for (int i =200; i<400; i++){
 
-		rainbow[i] = new NormalParticleB();
 	}
-	for (int i =400; i<600; i++){
-
-		rainbow[i] = new NormalParticleC();
+	
+	for (int i =400; i<450; i++){
+	;
+		rainbow[i] = new JumboParticleA();
 	}
 
+	kuromi =loadImage("kuromi.png");
+	melody =loadImage("melody.png");
+	kuromi.resize(33,31);
+	melody.resize(33,33);
 		
 
 }
-void draw()
-{
 
-	
+void mouseClicked(){
 
-		int bR=(int)(Math.random()*56)+200;
-		int bG=(int)(Math.random()*56)+200;
-		int bB=(int)(Math.random()*56)+200;
-	
-	if(mousePressed){
-
-		background(bR,bG,bB);
-
-		
+	if ( bC==255){
+		bC=0;
 	}
+	else {
+		bC=255;
+	}
+	System.out.println(bC);
+	
+}
 
-	for (int i=0;i<400; i++){
+void draw()
+
+{
+		//bC = 255;
+		background(bC);
+	
+	for (int i=0;i<450; i++){
 		rainbow[i].show();
 		rainbow[i].move();
 
 	}
 	
 }
+
+
 
 interface Particle
 {
@@ -71,12 +80,12 @@ class NormalParticleA implements Particle
 		nX =500;
 		nY =375;
 		nTheta=Math.random()*2*Math.PI;
-		nSpeed =(Math.random()*3)+0.01;
-		nR=(int)(Math.random()*56)+200;
-		nG=(int)(Math.random()*56)+200;
-		nB=(int)(Math.random()*56)+200;
-		nA =(int)(Math.random()*56+200);
-		nWH=(int)((Math.random()*50)+1);
+		nSpeed =(Math.random()*10)+0.001;
+		nR=(int)(Math.random()*76)+180;
+		nG=(int)(Math.random()*76)+180;
+		nB=(int)(Math.random()*76)+180;
+		nA =(int)(Math.random()*166+90);
+		nWH=(int)((Math.random()*50)+25);
 		
 		//if (math.random)
 		colorBright= color(nR,nG,255,nA);
@@ -93,25 +102,6 @@ class NormalParticleA implements Particle
 			nY = mouseY;
 		}
 
-		//if (nX>1000||nX<0){
-			//nX=mouseX;
-			//nX = nX+ Math.cos(nTheta)*nSpeed ;
-	//	}
-		//else{
-		//nX = nX+ Math.cos(nTheta)*nSpeed ;
-	//	}
-
-	//	if (nY>750||nY<0){
-	///		nY=mouseY;
-		//nY = nY+ Math.sin(nTheta)*nSpeed ;
-		//}
-		//else{
-		//	nY = nY+ Math.sin(nTheta)*nSpeed;
-		//}
-
-
-		
-
 	}
 
 	public void show(){
@@ -124,33 +114,23 @@ class NormalParticleA implements Particle
 	}
 }
 
-class NormalParticleB extends NormalParticleA{
 
-	NormalParticleB(){
-
-		nR=(int)(Math.random()*56)+200;
-		nG=(int)(Math.random()*56)+200;
-		nB=(int)(Math.random()*56)+200;
-		colorBright=color(255,nG,nB,nA);
-	}
-}
-
-class NormalParticleC extends NormalParticleA{
-
-	NormalParticleC(){
-		nR=(int)(Math.random()*56)+200;
-		nG=(int)(Math.random()*56)+200;
-		nB=(int)(Math.random()*56)+200;
-		colorBright=color(nR,255,nB,nA);
-	}
-}
 
 class OddballParticle //uses an interface
 {
 	//your code here
 }
-class JumboParticle //uses inheritance
+class JumboParticleA extends NormalParticleA
 {
-	//your code here
+	JumboParticleA(){
+
+		nA=255;
+		nG=255;
+
+		nWH =100;
+	}
 }
+
+
+
 
