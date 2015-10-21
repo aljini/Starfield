@@ -12,20 +12,22 @@ void setup()
 
 	rainbow = new Particle[1000];
 	
-	for (int i =0; i<400; i++){
+	for (int i =0; i<500; i++){
 
 		rainbow[i] = new NormalParticleA();
 
 	}
 	
-	for (int i =400; i<450; i++){
+	for (int i =500; i<550; i++){
 	;
 		rainbow[i] = new JumboParticleA();
 	}
 
+	rainbow[550] = new OddballParticle();
+
 	kuromi =loadImage("kuromi.png");
 	melody =loadImage("melody.png");
-	kuromi.resize(33,31);
+	kuromi.resize(80,85);
 	melody.resize(33,33);
 		
 
@@ -46,10 +48,10 @@ void mouseClicked(){
 void draw()
 
 {
-		//bC = 255;
+		
 		background(bC);
 	
-	for (int i=0;i<450; i++){
+	for (int i=0;i<551; i++){
 		rainbow[i].show();
 		rainbow[i].move();
 
@@ -69,7 +71,6 @@ interface Particle
 class NormalParticleA implements Particle
 {
 	double nX,nY,nTheta,nSpeed;
-	float saturation,luminance,hue;
 	int nR,nG,nB,nWH,nA;
 	color colorBright;
 	
@@ -80,16 +81,16 @@ class NormalParticleA implements Particle
 		nX =500;
 		nY =375;
 		nTheta=Math.random()*2*Math.PI;
-		nSpeed =(Math.random()*10)+0.001;
+		nSpeed =(Math.random()*8)+0.001;
 		nR=(int)(Math.random()*76)+180;
 		nG=(int)(Math.random()*76)+180;
 		nB=(int)(Math.random()*76)+180;
 		nA =(int)(Math.random()*166+90);
 		nWH=(int)((Math.random()*50)+25);
 		
-		//if (math.random)
+	
 		colorBright= color(nR,nG,255,nA);
-
+		
 
 	}
 
@@ -116,9 +117,45 @@ class NormalParticleA implements Particle
 
 
 
-class OddballParticle //uses an interface
-{
-	//your code here
+class OddballParticle implements Particle{
+
+	double kX,kY,kTheta,kSpeed;
+
+	OddballParticle(){
+
+		kX=450;
+		kY=350;
+		kTheta=Math.random()*2*Math.PI;
+		kSpeed =7;
+
+	}
+
+	public void move(){
+
+		kX=kX+Math.cos(kTheta)*kSpeed;
+		kY=kY+Math.sin(kTheta)*kSpeed;
+		
+		if(mousePressed){
+			kX = mouseX-45;
+			kY = mouseY-50;
+		}
+
+		if(kX>970||kX<30){
+
+			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*5));
+		}
+
+		if(kY>720||kY<30){
+			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*5));
+		}
+
+	}
+	public void show(){
+
+		image(kuromi,(int)kX,(int)kY);
+
+	}
+
 }
 class JumboParticleA extends NormalParticleA
 {
