@@ -19,16 +19,17 @@ void setup()
 	}
 	
 	for (int i =500; i<550; i++){
-	;
+	
 		rainbow[i] = new JumboParticleA();
 	}
 
-	rainbow[550] = new OddballParticle();
+	rainbow[550] = new OddballParticleA();
+	rainbow[551] = new OddballParticleB();
 
 	kuromi =loadImage("kuromi.png");
 	melody =loadImage("melody.png");
 	kuromi.resize(80,85);
-	melody.resize(33,33);
+	melody.resize(83,83);
 		
 
 }
@@ -38,7 +39,7 @@ void mouseClicked(){
 	if ( bC==255){
 		bC=0;
 	}
-	else {
+	else{
 		bC=255;
 	}
 	System.out.println(bC);
@@ -48,15 +49,12 @@ void mouseClicked(){
 void draw()
 
 {
-		
 		background(bC);
 	
-	for (int i=0;i<551; i++){
+	for (int i=0;i<552; i++){
 		rainbow[i].show();
 		rainbow[i].move();
-
 	}
-	
 }
 
 
@@ -74,8 +72,6 @@ class NormalParticleA implements Particle
 	int nR,nG,nB,nWH,nA;
 	color colorBright;
 	
-
-
 	NormalParticleA(){
 
 		nX =500;
@@ -88,9 +84,7 @@ class NormalParticleA implements Particle
 		nA =(int)(Math.random()*166+90);
 		nWH=(int)((Math.random()*50)+25);
 		
-	
 		colorBright= color(nR,nG,255,nA);
-		
 
 	}
 
@@ -117,11 +111,11 @@ class NormalParticleA implements Particle
 
 
 
-class OddballParticle implements Particle{
+class OddballParticleA implements Particle{
 
 	double kX,kY,kTheta,kSpeed;
 
-	OddballParticle(){
+	OddballParticleA(){
 
 		kX=450;
 		kY=350;
@@ -136,17 +130,25 @@ class OddballParticle implements Particle{
 		kY=kY+Math.sin(kTheta)*kSpeed;
 		
 		if(mousePressed){
+			kTheta=Math.random()*2*Math.PI;
 			kX = mouseX-45;
 			kY = mouseY-50;
 		}
 
-		if(kX>970||kX<30){
+		if(kX>1000){
 
-			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*5));
+			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*4));
+		}
+		else if(kX<0){
+			kTheta =kTheta + (Math.PI/2)*((int)(Math.random()*3)-1);
 		}
 
-		if(kY>720||kY<30){
-			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*5));
+		if(kY>750){
+			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*-3));
+		}
+
+		else if(kY<0){
+			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*3));
 		}
 
 	}
@@ -157,6 +159,21 @@ class OddballParticle implements Particle{
 	}
 
 }
+class OddballParticleB extends OddballParticleA
+{
+
+	OddballParticleB(){
+
+	}
+	
+	public void show(){
+
+		image(melody,(int)kX,(int)kY);
+
+	}
+
+}
+
 class JumboParticleA extends NormalParticleA
 {
 	JumboParticleA(){
@@ -167,7 +184,3 @@ class JumboParticleA extends NormalParticleA
 		nWH =100;
 	}
 }
-
-
-
-
