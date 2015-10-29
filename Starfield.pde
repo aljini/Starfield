@@ -26,10 +26,10 @@ void setup()
 	rainbow[550] = new OddballParticleA();
 	rainbow[551] = new OddballParticleB();
 
-	kuromi =loadImage("kuromi.png");
-	melody =loadImage("melody.png");
-	kuromi.resize(80,85);
-	melody.resize(83,83);
+	kuromi =loadImage("1kuromi.png");
+	melody =loadImage("1melody.png");
+	
+
 		
 
 }
@@ -135,7 +135,7 @@ class OddballParticleA implements Particle{
 			kY = mouseY-50;
 		}
 
-		if(kX>1000){
+		if(kX>930){
 
 			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*4));
 		}
@@ -143,7 +143,7 @@ class OddballParticleA implements Particle{
 			kTheta =kTheta + (Math.PI/2)*((int)(Math.random()*3)-1);
 		}
 
-		if(kY>750){
+		if(kY>670){
 			kTheta = kTheta + (Math.PI/2)*((int)(Math.random()*-3));
 		}
 
